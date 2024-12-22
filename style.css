@@ -1,88 +1,38 @@
 body{
-    background: black;
-    color: white;
-    margin: 0 auto;
-}
-
-h2{
-    margin: 20px 0px;
-}
-
-header{
-    width: 700px;
-    height: 600px;
-    margin: 0 auto;
-}
-
-header p, h1{
-    text-align: center;
-    margin: 80px 20px;
-}
-
-p{
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.img-text{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 80px 10px;
-}
-
-.img-text p{
-    line-height: 2em;
-}
-
-ul{
+    background-color: lightblue;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-li{
-    margin: 0 70px;
-    list-style: none;
-    transition-duration: 5s;
+section{
+    margin: 50px auto;
+    padding: 10px 0px;
+    background: white;
+    width: 800px
 }
 
-#habilidades, #projetos{
-    width: 700px;
-    line-height: 2.5em;
-    font-size: 20px;
-    height: 700px;
-    margin: 40px auto;
+.display{
+    font-size: 2em;
+    width: 100%;
+    text-align: right;
 }
 
-p:hover{
-    color: lightgray;
+.btn{
+    width: 100%;
+    height: 50px;
+    font-size: 1em;
+    border: none;
+    background: #dfdfdf;
+    cursor: pointer;
+    margin: 8px;
+    padding: 5px;
 }
 
-a{
-    display: block;
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
+.btn:hover{
+    background-color: #999999;
 }
-
-a:hover{
-    text-decoration: underline;
-    
-}
-
-img{
-    border-radius: 50%;
-    margin: 0 40px;
-}
-
-#contato{
-    height: 300px;
-    width: 700px;
-    margin: 20px auto;
-    font-size: 20px;
-    line-height: 3em;
-}
-
-#contato a{
-    display: flex;
+.btn-eq:hover{
+    background:rgb(6, 180, 6);
 }
