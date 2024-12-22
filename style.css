@@ -1,38 +1,16 @@
 body{
     background-color: lightblue;
+}
+
+h1{
+    text-align: center;
+}
+
+div{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-}
-
-section{
-    margin: 50px auto;
-    padding: 10px 0px;
-    background: white;
-    width: 800px
-}
-
-.display{
-    font-size: 2em;
-    width: 100%;
-    text-align: right;
-}
-
-.btn{
-    width: 100%;
-    height: 50px;
-    font-size: 1em;
-    border: none;
-    background: #dfdfdf;
-    cursor: pointer;
-    margin: 8px;
-    padding: 5px;
-}
-
-.btn:hover{
-    background-color: #999999;
-}
-.btn-eq:hover{
-    background:rgb(6, 180, 6);
+    color: black;
+    font-size: 3.5em;
+    
 }
