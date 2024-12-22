@@ -1,28 +1,35 @@
-function Calculadora(){
-    let display = document.querySelector('.display');
+function Calculadora() {
+    let display = document.querySelector('.display')
 
     this.inicia = () => {
         this.capturaCliques()
+        this.pressionarEnter()
     }
 
     this.capturaCliques = () => {
         document.addEventListener('click', event => {
             const e = event.target
 
-            if(e.classList.contains('btn-num')) this.adicionarNumeroDisplay(e)
-            if(e.classList.contains('btn-clear')) this.limparTela()
+            if(e.classList.contains('btn-num')) this.adicionarTela(e)
+            if(e.classList.contains('btn-clear')) this.limpaTela()
+            if(e.classList.contains('btn-del')) this.apagarNumero()    
             if(e.classList.contains('btn-cal')) this.realizaConta()
-            if(e.classList.contains('btn-del')) this.apagarNumero()
-
         })
     }
 
-    this.limparTela = () => {
-        display.value = ' '
+    this.pressionarEnter = () => {
+        document.addEventListener('keypress', e => {
+            if(e.keyCode === 13) this.realizaConta()
+        })
     }
 
-    this.adicionarNumeroDisplay = (valor) => {
-        display.value += valor.innerText
+    this.adicionarTela = (e) => {
+        display.value += e.innerText
+        display.focus()
+    }
+
+    this.limpaTela = () => {
+        display.value = ' '
     }
 
     this.apagarNumero = () => {
@@ -32,18 +39,18 @@ function Calculadora(){
     this.realizaConta = () => {
         try{
             const conta = eval(display.value)
-            
+
             if(!conta){
-                alert('Conta Invalida!')
-                return this.limparTela()
+                alert('Conta Invalida')
+                return this.limpaTela()
             }
 
-            this.limparTela()
+            this.limpaTela()
             display.value = String(conta)
         }
         catch{
-            alert('Conta Invalida!')
-            this.limparTela()
+            alert('Conta Invalida')
+            this.limpaTela()
         }
     }
 
