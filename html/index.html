@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cronômetro</title>
+    <title>Validador de Cpf</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <section class="container">
-        <h1>Cronômetro</h1>
-        <p class="status">Não iniciado</p>
-        <p class="relogio">00:00:00</p>
-        <p>
-            <button class="iniciar">Iniciar</button>
-            <button class="pausar">Pausar</button>
-            <button class="zerar">Zerar</button>
-        </p>
+    <section>
+        <input type="text" name="cpf-usuario" id="cpf-usuario" class="cpf-usuario" placeholder="Digite o cpf aqui">
+
+        <div class="display">Nenhum cpf inserido</div>
+        
+        <button class="verificaCpf">Verificar Cpf</button>
     </section>
 
     <script src="../js/script.js"></script>

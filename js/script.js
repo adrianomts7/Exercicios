@@ -1,54 +1,70 @@
-function Relogio(){
-    const relogio = document.querySelector('.relogio')
-    let status = document.querySelector('.status')
-    let segundos = 0
-    let timer
-
-    function criaSegundos(segundos){
-        const data = new Date(segundos * 1000)
-        return data.toLocaleTimeString('pt-BR', {
-            hour12: false,
-            timeZone: 'UTC'
+class ValidaCpf{
+    constructor(cpfEnviado){
+        Object.defineProperty(this, 'cpfLimpo', {
+            writable: false,
+            enumerable: true,
+            configurable: false,
+            value: cpfEnviado.replace(/\D+/g, '')
         })
     }
 
-    function iniciaRelogio(){
-        timer = setInterval(() => {
-            segundos ++
-            console.log(segundos)
-            relogio.innerText = criaSegundos(segundos)
-        }, 1000)
+    eSequencial(){
+        return this.cpfLimpo.charAt(0).repeat(11) === this.cpfLimpo
     }
 
-    document.addEventListener('click', event => {
-        const e = event.target
+    geraNovoCpf(){
+        const cpfSemDigitos = this.cpfLimpo.slice(0, -2)
+        const primeiroDigito = this.geraDigito(cpfSemDigitos)
+        const segundoDigito = this.geraDigito(cpfSemDigitos + primeiroDigito)
 
-        if(e.classList.contains('iniciar')){
-            relogio.classList.remove('pausado')
-            clearInterval(timer)
-            iniciaRelogio()
-            status.innerHTML = 'Cronômetro Iniciado'
-            status.style.color = '#1EB334'
+
+        this.novoCpf = cpfSemDigitos + primeiroDigito + segundoDigito
+    }
+
+    geraDigito(cpfSemDigitos){
+        let total = 0
+        let reverso = cpfSemDigitos.length + 1
+
+        for(let numeroString of cpfSemDigitos){
+            total += reverso * Number(numeroString)
+            reverso --
         }
 
-        if(e.classList.contains('pausar')){
-            relogio.classList.add('pausado')
-            clearInterval(timer)
-            status.innerHTML = 'Cronômetro Pausado'
-            status.style.color = '#DBD002'
-        }
+        const digito = 11 - (total % 11)
+        return digito <= 9 ? String(digito) : '0'
+    }
 
-        if(e.classList.contains('zerar')){
-            clearInterval(timer)
-            relogio.classList.remove('pausado')
-            relogio.innerHTML = '00:00:00'
-            segundos = 0
-            status.innerHTML = 'Cronômetro Zerado'
-            status.style.color = '#DC0501'
-        }
+    valida(){
+        if(!this.cpfLimpo) return false
+        if(typeof this.cpfLimpo !== 'string') return false
+        if(this.cpfLimpo.length !== 11) return false
+        if(this.eSequencial()) return false
 
-    })
+        this.geraNovoCpf()
+
+        return this.novoCpf === this.cpfLimpo
+    }
+
 
 }
 
-Relogio()
+let display = document.querySelector('.display')
+
+document.addEventListener('click', event =>{
+    const e = event.target
+
+    if(e.classList.contains('verificaCpf')){
+        const cpfUsuario = document.querySelector('.cpf-usuario').value
+        let verificaCpf = new ValidaCpf(cpfUsuario)
+
+        if(verificaCpf.valida()){
+            display.innerText = 'CPF Válido'
+            display.style.color = '#00EB3F'
+        }
+        else{
+            display.innerText = 'CPF Invalido'
+            display.style.color = 'red'
+        }
+    }
+
+})

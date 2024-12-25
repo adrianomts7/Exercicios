@@ -1,62 +1,41 @@
 body{
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
     background-color: lightblue;
 }
 
-h1{
-    text-align: center;
-}
-
 section{
-    margin: 50px auto;
-    padding: 10px 0px;
-    text-align: center;
-    background: white;
-    width: 70vw;
-    width: 800px
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 80px 0px;
 }
 
-.status{
-    font-size: 2em;
+.cpf-usuario{
+    width: 350px;
+    height: 30px;
+    margin: 20px 0px;
+    padding: 0px 8px;
+}
+
+.display{
+    margin: 20px 0px;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
 }
 
-.relogio{
-    font-size: 2.5em;
-}
-
-button{
-    font-family: Arial, Helvetica, sans-serif;
-    width: 250px;
+.verificaCpf{
+    width: 350px;
     height: 35px;
+    background-color: #00bd32;
+    border: 1px solid #00bd3F;
     color: white;
+    cursor: pointer;
 }
 
-.iniciar{
-    background-color: #1EB334;
-    border: 1px solid #1EB334;
-}
-
-.iniciar:hover{
-    background-color: #00DB22;
-    border: 1px solid #00DB22;
-}
-
-.pausar{
-    background-color: #DBD002;
-    border: 1px solid #DBD002;
-}
-
-.pausar:hover{
-    background-color: #fcef07;
-    border: 1px solid #fcef07;
-}
-
-.zerar{
-    background-color: #DC0501;
-    border: 1px solid #DC0501;
-}
-
-.zerar:hover{
-    background-color: #fd0703;
-    border: 1px solif #fd0703;
+.verificaCpf:hover{
+    background-color: #00EB3F;
+    border: 1px solid #00EB3F;
 }
