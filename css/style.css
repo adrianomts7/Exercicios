@@ -12,30 +12,3 @@ section{
     flex-direction: column;
     margin: 80px 0px;
 }
-
-.cpf-usuario{
-    width: 350px;
-    height: 30px;
-    margin: 20px 0px;
-    padding: 0px 8px;
-}
-
-.display{
-    margin: 20px 0px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.4em;
-}
-
-.verificaCpf{
-    width: 350px;
-    height: 35px;
-    background-color: #00bd32;
-    border: 1px solid #00bd3F;
-    color: white;
-    cursor: pointer;
-}
-
-.verificaCpf:hover{
-    background-color: #00EB3F;
-    border: 1px solid #00EB3F;
-}
