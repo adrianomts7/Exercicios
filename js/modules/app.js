@@ -1,20 +1,20 @@
+const fs = require('fs').promises
 const path = require('path')
-const fs = require('fs')
-const caminhoArquivo = path.resolve(__dirname, '..', 'teste.json')
-const escrever = require('../script')
-const ler = caminho =>  fs.promises.readFile(caminho, 'utf-8') 
+const caminhoArquivo = path.resolve(__dirname, '..', 'pessoas.json')
+const escrever = (caminho, dados) => {
+    fs.writeFile(caminho, dados, {flag: 'w'})
+}
+const ler = caminho => fs.readFile(caminho, 'utf-8')
 
-// Inscreve as pessoas no JSON
 // const pessoas = [
-//     { nome: 'Adriano', idade: 19, sexo:'M'},
-//     { nome: 'Maria', idade: 20, sexo:'F'},
-//     { nome: 'Mateus', idade: 22, sexo:'M'},
-//     { nome: 'Lourdes', idade: 18, sexo:'F'},
-//     { nome: 'Edvaldo', idade: 50, sexo:'F'},
+//     { nome: 'Adriano'},
+//     { nome: 'Joanice'},
+//     { nome: 'Julia'},
+//     { nome: 'Ourinho'},
 // ]
 
 // const json = JSON.stringify(pessoas, ' ', 2)
-// escrever(caminhoArquivo, json)
+// escrever(caminhoArquivo,json)
 
 async function lerArquivos(caminho){
     const dados = await ler(caminho)
@@ -23,7 +23,7 @@ async function lerArquivos(caminho){
 
 function renderizarDados(dados){
     dados = JSON.parse(dados)
-    dados.forEach(val => console.log(val));
+    dados.forEach(val => console.log(val))
 }
 
 lerArquivos(caminhoArquivo)
