@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modelo</title>
-</head>
-<body>
-    <section>
-        <h1>Complete os campos abaixo </h1>
-        <form action="/contato" method="post">
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome" autocomplete="off">
+<%- include('includes/head') %>
 
-            <label for="sobrenome">Sobrenome:</label>
-            <input type="text" name="sobrenome" id="sobrenome" autocomplete="off">
+<section>
+    <h1>Complete os campos abaixo </h1>
+     <form action="/contato" method="post">
+        <input type="hidden" name="_csurf">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" autocomplete="off">
+
+        <label for="sobrenome">Sobrenome:</label>
+        <input type="text" name="sobrenome" id="sobrenome" autocomplete="off">
             
-            <label for="dataNascimento">Data de Nascimento</label>
-            <input type="datetime" name="dataNascimento" id="dataNascimento" autocomplete="off">
+         <label for="dataNascimento">Data de Nascimento</label>
+        <input type="datetime" name="dataNascimento" id="dataNascimento" autocomplete="off">
             
-            <button>Concluir cadastro</button>
+        <button>Concluir cadastro</button>
         </form>
-    </section>
+</section>
 
-    <script src="../assets/js/bundle.js"></script>
-</body>
-</html>
+<%- include('includes/footer') %>
