@@ -1,0 +1,21 @@
+<%- include('includes/head') %>
+<%- include('includes/nav') %>
+
+<section class="login">
+    
+    <h1>Login</h1>
+    <p>Faça o login e acesse sua agenda de contatos</p>
+        
+    <form action="/login" method="post">
+        <label for="email">Digite o seu e-mail:</label>
+        <input type="email" name="email" id="email">
+        
+        <label for="password">Digite a sua password:</label>
+        <input type="password" name="password" id="password">
+        
+        <input type="submit" value="Fazer Login">
+    </form>
+   
+</section>
+
+<%- include('includes/footer') %>
