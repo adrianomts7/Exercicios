@@ -1,21 +1,22 @@
 <%- include('includes/head') %>
-<%- include('includes/nav') %>
 
 <section class="login">
     
     <h1>Login</h1>
-    <p>Faça o login e acesse sua agenda de contatos</p>
+    <p>Faça login e acesse sua agenda de contatos</p>
         
     <form action="/login" method="post">
         <label for="email">Digite o seu e-mail:</label>
-        <input type="email" name="email" id="email">
+        <input type="email" name="email" id="email" placeholder="usuario@gmail.com">
         
         <label for="password">Digite a sua password:</label>
-        <input type="password" name="password" id="password">
+        <input type="text" name="password" id="password">
         
-        <input type="submit" value="Fazer Login">
+        <input type="submit" value="Fazer Login" class="botao">
     </form>
    
+    <p>Não tem conta?<a href="/register" class="link-register">Cadastre-se</a></p>
+
 </section>
 
 <%- include('includes/footer') %>

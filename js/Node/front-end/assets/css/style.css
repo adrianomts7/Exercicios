@@ -26,46 +26,76 @@ section.erro404 p{
     font-size: 1.8em;
 }
 
-section.login{
-    height: 70vh;
+section{
+    height: 65vh;
     box-shadow: 1px 5px 10px black;
     margin-top: 55px;
     width: 35vw;
 }
 
-.login h1{
+h1{
     text-align: center;
     font-size: 2rem;
-    margin: 40px 0;
+    margin-top: 40px;
+    margin-bottom: 17px;
     color: #1d8ab9;
 }
 
-.login p{
+p{
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.8em;
+    font-size: 1.5em;
     color: #22B2F0;
+    margin: 10px 0;
 }
 
 label{
     display: block;
     text-align: left;
     font-size: 1.6em;
-    margin-top: 15px;
+    margin-top: 18px;
     margin-left: 10px;
+    color: #22B2F0;
 }
 
 input{
-    height: 35px;
+    height: 37px;
     width: 33vw;
     padding-left: 8px;
     box-sizing: border-box;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 10px;
-    font-size: 1em;
+    margin-bottom: 5px;
+    font-size: 1.1em;
     border-radius: 2%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.login input:hover{
+input:hover{
     border: 1px solid #2fc1ff;
+}
+
+.botao{
+    background-color: #1d8ab9;
+    color: white;
+    border: 1px solid #1d8ab9;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.botao:hover{
+    background-color: #2fc0ff;
+    border: 1px solid #2fc1ff;
+}
+
+.link-register{
+    margin-top: 20px;
+    text-decoration: none;
+    padding-left: 5px;
+    color: #2fc0ff;
+}
+
+.link-register:hover{
+    color: #1f8ab9;
+    text-decoration: underline;
 }
