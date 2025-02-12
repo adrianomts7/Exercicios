@@ -99,3 +99,25 @@ input:hover{
     color: #1f8ab9;
     text-decoration: underline;
 }
+
+.mensagem-erro{
+    color: red;
+    list-style: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1em;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.mensagem-erro li, .mensagem-success li{
+    list-style: none;
+}
+
+.mensagem-success{
+    color: green;
+    list-style: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1em;
+    text-align: center;
+    margin: 20px 0;
+}
