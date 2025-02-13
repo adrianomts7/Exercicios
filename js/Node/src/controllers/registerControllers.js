@@ -21,9 +21,11 @@ exports.register = async function(req, res){
         req.session.save(() => {
             return res.redirect('login')
         })
+
     }
     catch(e){
         console.log(e)
-        return res.render('404')
+        res.render('404')
     }
+
 }
