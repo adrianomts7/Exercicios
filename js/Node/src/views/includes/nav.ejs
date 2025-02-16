@@ -1,0 +1,17 @@
+<nav class="nav">
+    <ul>
+        <li><a href="">Agenda</a></li>
+    </ul>
+    <ul>
+        <% if(user){ %>
+        <li>
+            <a href="/login/logout">Sair</a>
+        </li>
+        <% } else { %>
+            <li>
+                <a href="/login">Entrar</a>
+            </li>
+        <% } %>
+    </ul>
+</nav>
+

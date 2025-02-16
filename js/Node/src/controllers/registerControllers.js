@@ -11,7 +11,7 @@ exports.register = async function(req, res){
 
         if(register.erros.length > 0){
             req.flash('erros', register.erros)
-            req.session.save(function(){
+            req.session.save(() => {
                 return res.redirect('back')
             })
             return
@@ -22,10 +22,10 @@ exports.register = async function(req, res){
             return res.redirect('login')
         })
 
+
     }
     catch(e){
         console.log(e)
-        res.render('404')
+        return res.render('404')
     }
-
 }
