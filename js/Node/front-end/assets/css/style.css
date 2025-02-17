@@ -30,7 +30,7 @@ section{
     height: 65vh;
     box-shadow: 1px 5px 10px black;
     margin-top: 55px;
-    width: 35vw;
+    width: 30vw;
 }
 
 h1{
@@ -60,7 +60,7 @@ label{
 
 input{
     height: 37px;
-    width: 33vw;
+    width: 29vw;
     padding-left: 8px;
     box-sizing: border-box;
     margin-top: 10px;

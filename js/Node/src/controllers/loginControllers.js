@@ -1,13 +1,13 @@
-const Register = require('../models/RegisterModel')
+const Login = require('../models/RegisterModel')
 
-exports.index = (req, res) => {
+exports.index = (req,res) => {
     if(req.session.user) return res.render('login-logado')
     res.render('login')
 }
 
-exports.login = async function(req, res){
+exports.login = async function(req,res){
     try{
-        const login = new Register(req.body)
+        const login = new Login(req.body)
         await login.login()
 
         if(login.erros.length > 0){
@@ -15,7 +15,6 @@ exports.login = async function(req, res){
             req.session.save(() => {
                 return res.redirect('back')
             })
-            return
         }
 
         req.flash('success', 'Você entrou no sistema')
@@ -23,6 +22,7 @@ exports.login = async function(req, res){
         req.session.save(() => {
             return res.redirect('back')
         })
+
     }
     catch(e){
         console.log(e)
@@ -30,7 +30,7 @@ exports.login = async function(req, res){
     }
 }
 
-exports.logout = (req, res) => {
+exports.logout = (req,res) => {
     req.session.destroy()
     res.redirect('/login')
     return
