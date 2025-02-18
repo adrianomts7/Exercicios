@@ -22,15 +22,16 @@ class Register{
 
         this.user = await RegisterModel.findOne({email: this.body.email})
         if(!this.user){
-            this.erros.push('Usuario não cadastrado')
+            this.erros.push('Usuario não existe')
             return
         }
 
         if(!bcrypt.compareSync(this.body.password, this.user.password)){
-            this.erros.push('Password invalida')
+            this.body.erros('Password invalido')
             this.user = null
             return
         }
+
     }
 
     async register(){
@@ -39,17 +40,19 @@ class Register{
 
         if(this.erros.length > 0) return
 
-        const salt = bcrypt.genSaltSync()
-        this.body.password = bcrypt.hashSync(this.body.password, salt)
+        const hash = bcrypt.genSaltSync()
+        this.body.password = bcrypt.hashSync(this.body.password, hash)
 
         this.user = await RegisterModel.create(this.body)
+
     }
 
     valida(){
         this.cleanUp()
+        if(this.erros.length > 0) return
 
         if(!validator.isEmail(this.body.email)) this.erros.push('E-mail invalido')
-        if(this.body.password.length < 3 || this.body.password.length > 15) this.erros.push('Password deve ter entre 3 a 15 caracteres')
+        if(this.body.password.length < 3 || this.body.password.length > 15) this.erros.push('Password deve conter 3 a 15 caracteres')
     }
 
     async userExists(){
@@ -66,7 +69,6 @@ class Register{
                 this.body[key] = ''
             }
         }
-
         this.body = {
             email: this.body.email,
             password: this.body.password

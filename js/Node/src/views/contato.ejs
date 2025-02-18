@@ -1,0 +1,31 @@
+<%- include('includes/head') %>
+<%- include('includes/nav') %>
+
+<section class="contato">
+    <h1>Agenda de Contatos</h1>
+    <form action="/contato/register" method="post">
+        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+
+        <label for="nome">Digite o Nome:</label>
+        <input type="text" name="nome" id="nome">
+
+        <label for="sobrenome">Digite o Sobrenome</label>
+        <input type="text" name="sobrenome" id="sobrenome">
+
+        <label for="email">Digite o Email:</label>
+        <input type="text" name="email" id="email" placeholder="Digite o email do contato">
+
+        <label for="telefone">Digite o Telefone:</label>
+        <input type="tel" name="telefone" id="telefone">
+
+        <select name="tipo" id="tipo" class="tipo">
+            <option value="trabalho">Trabalho</option>
+            <option value="pessoal">Pessoal</option>
+        </select>
+
+        <button type="submit" class="botao botao-contato">Salvar Contato</button>
+
+    </form>
+</section>
+
+<%- include('includes/footer') %>
