@@ -16,7 +16,7 @@ const flash = require('connect-flash')
 
 const route = require('./routes')
 const path = require('path')
-const {middlewareGlobal, csrfMiddleware} = require('./src/middlewares/middleware')
+const {middlewareGlobal, csrfMiddleware, loginRequired} = require('./src/middlewares/middleware')
 // const helmet = require('helmet')
 const csurf = require('csurf')
 
@@ -45,6 +45,7 @@ app.use(csurf())
 
 app.use(middlewareGlobal)
 app.use(csrfMiddleware)
+app.use(loginRequired)
 app.use(route)
 
 app.on('pronto', () => {
