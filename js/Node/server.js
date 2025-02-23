@@ -16,7 +16,7 @@ const flash = require('connect-flash')
 
 const route = require('./routes')
 const path = require('path')
-const {middlewareGlobal, csrfMiddleware, loginRequired} = require('./src/middlewares/middleware')
+const {middlewareGlobal, csrfMiddleware, checkCsrfError} = require('./src/middlewares/middleware')
 // const helmet = require('helmet')
 const csurf = require('csurf')
 
@@ -36,16 +36,18 @@ const sessionOptions = session({
 })
 
 app.use(sessionOptions)
-app.use(flash())
+app.use(csurf())
 
 app.set('views', path.resolve(__dirname, 'src', 'views'))
 app.set('view engine', 'ejs')
 
-app.use(csurf())
+app.use(flash())
+// app.use(helmet())
 
 app.use(middlewareGlobal)
 app.use(csrfMiddleware)
-app.use(loginRequired)
+app.use(checkCsrfError)
+
 app.use(route)
 
 app.on('pronto', () => {

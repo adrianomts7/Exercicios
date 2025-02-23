@@ -1,20 +1,41 @@
 <%- include('includes/head') %>
+<%- include('includes/nav') %>
 
-<section>
-    <h1>Complete os campos abaixo </h1>
-     <form action="/contato" method="post">
-        <input type="hidden" name="_csurf">
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome" autocomplete="off">
+<section class="home">
+    <h1>Agenda</h1>
+    <p>Contatos salvos abaixo</p>
+    
+    <%- include('includes/messages') %>
+    
+    <% if(contatos.length > 0 && user){ %>
+        <table>
+            <tr>
+                <td><p>Nome</p></td>
+                <td><p>Sobrenome </p></td>
+                <td><p>Email</p></td>
+                <td><p>Telefone</p></td>
+                <td><p>Tipo</p></td>
+            </tr>
 
-        <label for="sobrenome">Sobrenome:</label>
-        <input type="text" name="sobrenome" id="sobrenome" autocomplete="off">
+            <% contatos.forEach(contato => {  %>
+                
+                <tr class="contatos">
+                    <td> <%= contato.nome %></td>
+                    <td> <%= contato.sobrenome %></td>
+                    <td> <%= contato.email %></td>
+                    <td> <%= contato.telefone %></td>
+                    <td> <%= contato.tipo %></td>
+                    <td><a href="/contato/index/<%= contato._id %>" class="editar">Editar</a></td>
+                    <td><a href="/contato/delete/<%= contato._id %>" class="excluir">Excluir</a></td>
+                </tr>
             
-         <label for="dataNascimento">Data de Nascimento</label>
-        <input type="datetime" name="dataNascimento" id="dataNascimento" autocomplete="off">
-            
-        <button>Concluir cadastro</button>
-        </form>
+            <% }) %>
+
+        </table>
+    
+    <% } else { %>
+        <p>Não existe contato na sua agenda</p>
+    <% } %>
 </section>
 
 <%- include('includes/footer') %>

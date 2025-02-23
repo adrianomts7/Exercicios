@@ -1,14 +1,13 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
-const { Module } = require('webpack')
 
 const ContatoSchema = new mongoose.Schema({
     nome: {type: String, required: true, default: ''},
     sobrenome: {type: String, required: true, default: ''},
-    email: {type: String, required: false, default: ''},
+    email: {type: String, required: true, default: ''},
     telefone: {type: String, required: true, default: ''},
-    tipo: {type: String, enum: ['pessoal', 'trabalho'], required: true},
-    criadoEm: {type: Date, required: false, default: Date.now}
+    tipo: {type: String, enum: ['Pessoal', 'Trabalho'],required: true, default: ''},
+    criadoEm: {type: Date, required: true, default: Date.now}
 })
 
 const ContatoModel = mongoose.model('Contato', ContatoSchema)
@@ -16,27 +15,24 @@ const ContatoModel = mongoose.model('Contato', ContatoSchema)
 function Contato(body){
     this.body = body
     this.erros = []
-    this.user = null
-}
-
-Contato.buscaPorId = async function(id){
-    if(typeof id !== 'string') return
-    const user = await ContatoModel.findById(id)
-    return user
+    this.contato = null
 }
 
 Contato.prototype.register = async function(){
     this.valida()
+    
     if(this.erros.length > 0) return
-    this.user = await ContatoModel.create(this.body)
+    this.contato = await ContatoModel.create(this.body)
 }
 
 Contato.prototype.valida = function(){
     this.cleanUp()
-
-    if(this.body.email && !validator.isEmail(this.body.email)) this.erros.push('E-mail invalido')
-    if(!this.body.nome) this.erros.push('Nome é um campo obrigatorio')
-    if(!this.body.telefone) this.erros.push('Telefone e obrigatorio')    
+    if(this.erros.length > 0) return
+    
+    if(!this.body.email && !validator.isEmail(this.body.email)) this.erros.push('E-mail invalido')
+    if(this.body.nome.length < 3) this.erros.push('Nome invalido')
+    if(!this.body.telefone.length === 11)this.erros.push('Telefone invalido')
+    
 }
 
 Contato.prototype.cleanUp = function(){
@@ -45,14 +41,39 @@ Contato.prototype.cleanUp = function(){
             this.body[key] = ''
         }
     }
-
     this.body = {
         nome: this.body.nome,
-        sobrenome: this.body.telefone,
+        sobrenome: this.body.sobrenome,
         email: this.body.email,
         telefone: this.body.telefone,
         tipo: this.body.tipo
     }
+}
+
+Contato.prototype.edit = async function(id){
+    if(typeof id !== 'string') return
+    this.valida()
+    if(this.erros.length > 0) return
+
+    this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, {new: true})
+}
+
+Contato.buscaPorId = async function(id){
+    if(typeof id !== 'string') return
+    const user = await ContatoModel.findById(id)
+    return user
+}
+
+Contato.buscaContato = async function(){
+    const contato = await ContatoModel.find()
+        .sort( {criadoEm: -1} )
+    return contato
+}
+
+Contato.delete = async function(id){
+    if(typeof id !== 'string') return
+    const contato = await ContatoModel.findByIdAndDelete({_id: id})
+    return contato
 }
 
 module.exports = Contato

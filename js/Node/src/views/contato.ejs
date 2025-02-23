@@ -3,8 +3,18 @@
 
 <section class="contato">
     <h1>Agenda de Contatos</h1>
-    <form action="/contato/register" method="post">
-        <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+
+    <% if(contato._id){ %>
+        
+        <form action="/contato/edit/<%= contato._id %>" method="post">
+    
+    <% } else { %>
+        
+        <form action="/contato/register" method="post">
+    
+    <% } %>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
         <label for="nome">Digite o Nome:</label>
         <input type="text" name="nome" id="nome">
@@ -19,8 +29,8 @@
         <input type="tel" name="telefone" id="telefone">
 
         <select name="tipo" id="tipo" class="tipo">
-            <option value="trabalho">Trabalho</option>
-            <option value="pessoal">Pessoal</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Pessoal">Pessoal</option>
         </select>
 
         <button type="submit" class="botao botao-contato">Salvar Contato</button>

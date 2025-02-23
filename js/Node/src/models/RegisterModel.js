@@ -27,7 +27,7 @@ class Register{
         }
 
         if(!bcrypt.compareSync(this.body.password, this.user.password)){
-            this.body.erros('Password invalido')
+            this.erros.push('Password invalido')
             this.user = null
             return
         }

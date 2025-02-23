@@ -1,10 +1,11 @@
 <nav class="nav">
     <ul>
-        <li><a href="">Agenda</a></li>
+        <li><a href="/">Agenda</a></li>
     </ul>
     <ul>
         <% if(user){ %>
         <li>
+            <a href="/contato" class="nav-log">Cadastrar Contato</a>
             <a href="/login/logout">Sair</a>
         </li>
         <% } else { %>
