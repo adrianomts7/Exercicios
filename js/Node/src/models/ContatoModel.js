@@ -32,6 +32,7 @@ Contato.prototype.valida = function(){
     if(!this.body.email && !validator.isEmail(this.body.email)) this.erros.push('E-mail invalido')
     if(this.body.nome.length < 3) this.erros.push('Nome invalido')
     if(!this.body.telefone.length === 11)this.erros.push('Telefone invalido')
+    if(!validator.isNumeric(this.body.telefone)) this.erros.push('O número de telefone deve ser númerico')
     
 }
 

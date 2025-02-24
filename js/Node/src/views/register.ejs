@@ -1,19 +1,21 @@
 <%- include('includes/head') %>
+<%- include('includes/nav') %>
 
 <section>
     <h1>Cadastre-se</h1>
     <p>Completo os campos abaixo, para concluir o cadastro</p>
 
     <%- include('includes/messages') %>
-
-    <form action="/register/register" method="post">
+    <p class="mensagens-erro"></p>
+    
+    <form action="/register/register" method="post" class="form-register">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" placeholder="seunome@gmail.com">
 
         <label for="password">Password:</label>
-        <input type="text" name="password" id="password">
+        <input type="password" name="password" id="password">
 
         <input type="submit" value="Concluir Cadastro" class="botao">
 

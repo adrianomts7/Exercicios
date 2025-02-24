@@ -74,4 +74,4 @@ exports.delete = async function(req, res){
     req.flash('success', 'Contato apagado com sucesso')
     req.session.save(() => res.redirect('back'))
     return  
-} 
+}
