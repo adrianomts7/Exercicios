@@ -58,10 +58,6 @@ label{
     color: #22B2F0;
 }
 
-section.login{
-    width: 7vh;
-}
-
 input, .botao-contato{
     height: 37px;
     width: 33vw;

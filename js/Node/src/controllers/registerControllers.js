@@ -1,10 +1,10 @@
 const Register = require('../models/RegisterModel')
 
-exports.index = (req,res) => {
+exports.index = (req, res) => {
     res.render('register')
 }
 
-exports.register = async function(req, res){
+exports.register = async (req, res) => {
     try{
         const register = new Register(req.body)
         await register.register()
@@ -17,13 +17,13 @@ exports.register = async function(req, res){
             return
         }
 
-        req.flash('success', 'Usuario Registrado com sucesso!')
+        req.flash('success', 'Usuario registrado')
         req.session.save(() => {
             return res.redirect('/login')
         })
     }
     catch(e){
         console.log(e)
-        res.render('404')
+        return res.render('404')
     }
 }

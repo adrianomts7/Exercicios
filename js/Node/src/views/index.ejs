@@ -14,7 +14,6 @@
                 <td><p>Sobrenome </p></td>
                 <td><p>Email</p></td>
                 <td><p>Telefone</p></td>
-                <td><p>Tipo</p></td>
             </tr>
 
             <% contatos.forEach(contato => {  %>
@@ -24,7 +23,6 @@
                     <td> <%= contato.sobrenome %></td>
                     <td> <%= contato.email %></td>
                     <td> <%= contato.telefone %></td>
-                    <td> <%= contato.tipo %></td>
                     <td><a href="/contato/index/<%= contato._id %>" class="editar">Editar</a></td>
                     <td><a href="/contato/delete/<%= contato._id %>" class="excluir">Excluir</a></td>
                 </tr>

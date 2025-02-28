@@ -3,9 +3,9 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 
 const RegisterSchema = new mongoose.Schema({
-    email: {type: String, required: true},
-    password: {type: String, required: true}
-})
+    email: {type: String, required: true, default: ''},
+    password: {type: String, required: true, default: ''}
+}) 
 
 const RegisterModel = mongoose.model('Register', RegisterSchema)
 
@@ -21,20 +21,20 @@ class Register{
         if(this.erros.length > 0) return
 
         this.user = await RegisterModel.findOne({email: this.body.email})
+
         if(!this.user){
-            this.erros.push('Usuario não existe')
+            this.erros.push('Usuario invalido')
             return
         }
 
         if(!bcrypt.compareSync(this.body.password, this.user.password)){
-            this.erros.push('Password invalido')
+            this.erros.push('Senha Invalida')
             this.user = null
             return
         }
-
     }
 
-    async register(){
+   async register(){
         this.valida()
         await this.userExists()
 
@@ -44,23 +44,22 @@ class Register{
         this.body.password = bcrypt.hashSync(this.body.password, hash)
 
         this.user = await RegisterModel.create(this.body)
-
-    }
+   }
 
     valida(){
         this.cleanUp()
         if(this.erros.length > 0) return
 
         if(!validator.isEmail(this.body.email)) this.erros.push('E-mail invalido')
-        if(this.body.password.length < 3 || this.body.password.length > 15) this.erros.push('Password deve conter 3 a 15 caracteres')
+        if(this.body.password.length < 3 || this.body.password.length > 15) this.erros.push('A Senha deve conter entre 3 a 15 caracteres')
     }
 
     async userExists(){
         this.user = await RegisterModel.findOne({email: this.body.email})
         if(this.user){
-            this.erros.push('Usuario já existe')
+            this.erros.push('Usuario já existe!')
             return
-        }
+        } 
     }
 
     cleanUp(){

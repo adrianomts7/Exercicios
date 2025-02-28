@@ -1,28 +1,27 @@
 const Contato = require('../models/ContatoModel')
 
-exports.index = (req,res) => {
+exports.index =  (req,res) => {
     res.render('contato', {
         contato: {}
     })
 }
 
-exports.register = async(req, res) => {
+exports.register = async (req,res) => {
     try{
         const contato = new Contato(req.body)
         await contato.register()
 
         if(contato.erros.length > 0){
-            req.flash('erros',contato.erros)
+            req.flash('erros', contato.erros)
             req.session.save(() => {
-                return res.redirect('back')
+                return res.redirect(req.get('contato') || '/contato')
             })
             return
         }
 
-        req.flash('success', 'Contato Registrado com sucesso!')
+        req.flash('success', 'Contato Registrado com Sucesso')
         req.session.save(() => {
-            res.redirect(`/`)
-            return
+            return res.redirect('/')
         })
 
     }
@@ -32,46 +31,46 @@ exports.register = async(req, res) => {
     }
 }
 
-exports.editIndex = async function(req, res){
+exports.editIndex = async (req, res) => {
     if(!req.params.id) return res.render('404')
-    
-    const contato = await Contato.buscaPorId(req.params.id)
+
+    const contato = await Contato.buscarPorId(req.params.id)
     if(!contato) return res.render('404')
 
-    res.render('contato', {contato})
+    res.render('contato', { contato })
 }
 
-exports.edit = async function(req, res){
+exports.edit = async (req, res) => {
     try{
         if(!req.params.id) return res.render('404')
-        
+
         const contato = new Contato(req.body)
         await contato.edit(req.params.id)
 
         if(contato.erros.length > 0){
-            res.flash('erros',contato.erros)
-            res.session.save(() => { res.redirect('back') })
+            req.flash('erros', contato.erros)
+            req.session.save(() => { res.redirect('back') })
             return
         }
 
-        req.flash('success', 'Contato editado com sucesso')
+        req.flash('success', 'Contato Editado Com Sucesso')
         req.session.save(() => { res.redirect('/') })
         return
 
     }
     catch(e){
         console.log(e)
-        res.render('404')
+        return res.render('404')
     }
 }
 
-exports.delete = async function(req, res){
+exports.delete = async (req,res) => {
     if(!req.params.id) return res.render('404')
 
     const contato = await Contato.delete(req.params.id)
-    if(!contato) return res.render('404')
+    if(!contato) res.render('404')
 
-    req.flash('success', 'Contato apagado com sucesso')
-    req.session.save(() => res.redirect('back'))
-    return  
+    req.flash('success', 'Contato Deletado com Sucesso')
+    req.session.save(() => { res.redirect('/') })
+    return
 }
