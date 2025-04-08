@@ -1,6 +1,6 @@
-import app from "./app";
+import mongoose from "mongoose";
 
-const mongoose = require("mongoose");
+import app from "./app.js";
 
 mongoose.connect(process.env.url_db).then(() => {
   console.log("Conectei a base de dados");
