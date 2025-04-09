@@ -9,11 +9,11 @@ dotenv.config();
 class App {
   constructor() {
     this.app = express();
-    this.middlewares();
+    this.middleware();
     this.routes();
   }
 
-  middlewares() {
+  middleware() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
   }
