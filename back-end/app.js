@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 
 import home from "./src/routes/home.js";
+import token from "./src/routes/token.js";
 import user from "./src/routes/user.js";
 
 dotenv.config();
@@ -9,11 +10,11 @@ dotenv.config();
 class App {
   constructor() {
     this.app = express();
-    this.middleware();
+    this.middlewares();
     this.routes();
   }
 
-  middleware() {
+  middlewares() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
   }
@@ -21,6 +22,7 @@ class App {
   routes() {
     this.app.use("/", home);
     this.app.use("/user", user);
+    this.app.use("/tokens", token);
   }
 }
 
