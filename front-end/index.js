@@ -1,12 +1,11 @@
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+function cliques() {
+  const tela = document.querySelector("#tela");
+  const paragrafo = document.querySelector("#para");
 
-import Login from "./modules/Login";
+  document.addEventListener("keydown", (e) => {
+    e.preventDefault();
+    tela.innerHTML = e.key;
+  });
+}
 
-const login = new Login(".form-login");
-const register = new Login(".form-register");
-
-login.init();
-register.init();
-
-import "./assets/css/style.css";
+cliques();

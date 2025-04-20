@@ -3,7 +3,7 @@ import User from "../models/User.js";
 class UserController {
   async index(req, res) {
     try {
-      const users = await User.find();
+      const users = await User.find().select("nome email");
       return res.json(users);
     } catch (e) {
       console.log(e);
@@ -24,7 +24,8 @@ class UserController {
       }
 
       const novoUser = await User.create(req.body);
-      return res.json(novoUser);
+      const { nome, email } = novoUser;
+      return res.json({ nome, email });
     } catch (e) {
       console.log(e);
       return res.status(400).json("Erro ao criar usuario");
@@ -33,17 +34,19 @@ class UserController {
 
   async show(req, res) {
     try {
-      if (!req.params.email) {
+      if (!req.user.email) {
         return res.status(400).json("E-mail invalido");
       }
 
-      const userExiste = await User.findOne({ email: req.params.email });
+      const userExiste = await User.findOne({ email: req.user.email });
 
       if (!userExiste) {
         return res.status(400).json("Usuario não existe");
       }
 
-      return res.json(userExiste);
+      const { nome, email } = userExiste;
+
+      return res.json({ nome, email });
     } catch (e) {
       console.log(e);
       return res.status(400).json("Erro ao procurar usuario!");
@@ -52,17 +55,19 @@ class UserController {
 
   async delete(req, res) {
     try {
-      if (!req.params.email) {
+      if (!req.user.email) {
         return res.status(400).json("E-mail invalido");
       }
 
-      const userExiste = await User.findOne({ email: req.params.email });
+      const userExiste = await User.findOne({ email: req.user.email });
 
       if (!userExiste) {
         return res.status(400).json("Usuario não existe");
       }
 
-      const userApagado = await User.findOneAndDelete(userExiste);
+      const userApagado = await User.findOneAndDelete({
+        email: req.user.email,
+      });
 
       return res.json({
         message: "Usuario apagado ",
@@ -76,17 +81,17 @@ class UserController {
 
   async update(req, res) {
     try {
-      if (!req.params.email) {
+      if (!req.user.email) {
         return res.status(400).json("E-mail invalido");
       }
 
-      const user = await User.findOne({ email: req.params.email });
+      const user = await User.findOne({ email: req.user.email });
 
       if (!user) {
         return res.status(400).json("Usuario não existe");
       }
 
-      const usuarioAtualizado = await User.findOneAndDelete(user, req.body, {
+      const usuarioAtualizado = await User.findOneAndUpdate(user, req.body, {
         new: true,
       });
       return res.json({
