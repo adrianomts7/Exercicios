@@ -22,7 +22,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "A senha é obrigatoria"],
     minlength: [3, "A senha deve ter no minimo 3 caracteres"],
-    maxlength: [15, "A senha deve ter no maximo 15 caracteres"],
   },
 
   usuarioCriadoEm: {
