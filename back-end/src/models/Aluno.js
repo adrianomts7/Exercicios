@@ -30,6 +30,9 @@ const AlunoSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Altura é um campo obrigatorio"],
   },
+  foto: {
+    type: String,
+  },
   cadastradoEm: {
     type: Date,
     required: true,

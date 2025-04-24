@@ -1,36 +1,40 @@
-import mongoose from "mongoose";
-import validator from "validator";
+import { DataTypes } from "sequelize";
 
-const UserSchema = new mongoose.Schema({
-  nome: {
-    type: String,
-    required: [true, "O nome é um campo obrigatorio"],
-    minlength: [3, "O nome deve ter no minimo 3 caracteres"],
+import sequelize from "../config/database.js";
+
+const UserModel = sequelize.define("User", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
   },
-
-  email: {
-    type: String,
-    required: [true, "O email é um campo obrigatorio"],
-    unique: true,
-    validator: {
-      validator: validator.isEmail,
-      message: "Email invalido",
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      len: [3, 15],
     },
   },
-
-  password: {
-    type: String,
-    required: [true, "A senha é obrigatoria"],
-    minlength: [3, "A senha deve ter no minimo 3 caracteres"],
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
-
-  usuarioCriadoEm: {
-    type: Date,
-    required: true,
-    default: Date.now,
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  criadoEm: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
   },
 });
 
-const Users = mongoose.model("User", UserSchema);
+// Sicroniza a tabela automaticamente
+await UserModel.sync();
 
-export default Users;
+export default UserModel;

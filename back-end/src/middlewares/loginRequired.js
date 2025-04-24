@@ -19,7 +19,7 @@ export default async (req, res, next) => {
     const dados = jwt.verify(token, process.env.JWT_SECRET);
     const { email } = dados;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: { email } });
 
     req.user = user;
 
