@@ -12,7 +12,10 @@ const UserModel = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      len: [3, 15],
+      len: {
+        args: [2, 15],
+        message: "O nome deve ter entre 2 a 15 letras",
+      },
     },
   },
   email: {
@@ -20,7 +23,9 @@ const UserModel = sequelize.define("User", {
     allowNull: false,
     unique: true,
     validate: {
-      isEmail: true,
+      isEmail: {
+        message: "Digite um e-mail valido",
+      },
     },
   },
   password: {

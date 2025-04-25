@@ -1,62 +1,67 @@
-import Alunos from "../models/Aluno.js";
+import Aluno from "../models/Aluno.js";
 
-class AlunoControllers {
+class AlunoController {
   async index(req, res) {
     try {
-      const alunos = await Alunos.find().select("nome email");
+      const alunos = await Aluno.findAll();
+
       if (alunos.length < 1) {
-        return res.status(400).json("Não tem nenhum aluno cadastrado!");
+        return res.status(401).json("Não tem nenhum aluno cadastrado");
       }
+
       return res.json(alunos);
     } catch (e) {
       console.log(e);
-      return res.status(500).json("Erro ao buscar todos os alunos!");
+      return res.status(500).json("Erro ao mostrar todos os alunos");
     }
   }
 
   async show(req, res) {
     try {
-      const { email } = req.body;
+      const { email } = req.params;
 
       if (!email) {
-        return res.status(401).json("E-mail do aluno invalido!");
+        return res.status(400).json("E-mail invalido");
       }
 
-      const aluno = await Alunos.findOne({ email });
+      const aluno = await Aluno.findOne({ where: { email } });
 
       if (!aluno) {
-        return res.status(400).json("Aluno não encontrado");
+        return res.status(400).json("Aluno não encontrado!");
       }
 
-      return res.json({ message: "Dados do aluno encontrado: ", aluno: aluno });
+      return res.json({ message: "Aluno encontrado com sucesso!" });
     } catch (e) {
       console.log(e);
-      return res.status(500).json("Erro ao buscar aluno!");
+      return res.status(500).json("Erro ao procurar aluno");
     }
   }
 
   async store(req, res) {
     try {
       if (!req.body || Object.keys(req.body).length === 0) {
-        return res.status(401).json("Os dados enviados são invalidos!");
+        return res.status(401).json("Completo os campos");
       }
 
-      const aluno = await Alunos.findOne({ email: req.body.email });
+      const { email } = req.body;
 
-      if (aluno) {
-        return res.status(400).json("Aluno já existe!");
+      const alunoExist = await Aluno.findOne({ where: { email } });
+
+      if (alunoExist) {
+        return res.status(400).json("O aluno já existe");
       }
 
-      const newAluno = await Alunos.create(req.body);
-      const { nome } = newAluno;
+      const aluno = await Aluno.create(req.body);
+
+      const { nome, idade } = aluno;
 
       return res.json({
         message: "Aluno criado com sucesso",
-        aluno: `${nome} foi criado com sucesso!`,
+        aluno: `Dados do aluno cadastrado: \nNome: ${nome} \nIdade: ${idade} \nEmail: ${email}`,
       });
     } catch (e) {
       console.log(e);
-      return res.status(500).json("Erro ao cadastrar usuario!");
+      return res.status(500).json("Erro ao cadastrar usuario");
     }
   }
 
@@ -65,67 +70,56 @@ class AlunoControllers {
       const { email } = req.body;
 
       if (!email) {
-        return res
-          .status(401)
-          .json("Digite o e-mail do aluno que deseja apagar!");
+        return res.status(401).json("E-mail invalido");
       }
 
-      const aluno = await Alunos.findOne({ email });
+      const aluno = await Aluno.findOne({ where: { email } });
 
       if (!aluno) {
         return res.status(400).json("Aluno não existe");
       }
 
-      const alunoDeleted = await Alunos.findOneAndDelete({
-        email: req.body.email,
-      });
-
-      const { nome } = alunoDeleted;
-
-      return res.json({
-        message: "Aluno deletado com sucesso!",
-        aluno: `${nome} foi deletado com sucesso!`,
-      });
+      await aluno.destroy();
+      return res.json("Aluno excluido com sucesso");
     } catch (e) {
       console.log(e);
-      return res.status(500).json("Erro ao deletar usuario!");
+      return res.status(400).json("Erro ao deletar usuario");
     }
   }
 
   async update(req, res) {
     try {
-      const { email } = req.params;
+      const { email } = req.body;
 
       if (!email) {
-        return res.status(401).json("E-mail invalido!");
+        return res.status(401).json("E-mail invalido");
       }
 
-      const studentExist = await Alunos.findOne({ email });
+      const aluno = await Aluno.findOne({ where: { email } });
 
-      if (!studentExist) {
-        return res.status(400).json("Aluno não existe");
+      if (!aluno) {
+        return res.status(400).json("Aluno não encontrado!");
       }
 
-      if (!req.body || Object.keys(req.body).length === 0) {
-        return res
-          .status(401)
-          .json("Digite dados válidos para editar o aluno!");
-      }
+      const dadosAtualizados = {
+        nome: req.body.nome,
+        sobrenome: req.body.sobrenome,
+        idade: req.body.idade,
+        altura: req.body.altura,
+        peso: req.body.peso,
+      };
 
-      const studentEdited = await Alunos.findOneAndUpdate({ email }, req.body, {
-        new: true,
-      });
-      const { nome } = studentEdited;
+      await aluno.update(dadosAtualizados);
 
       return res.json({
-        message: "Aluno editado com sucesso!",
-        alunoDeletado: `${nome} foi editado`,
+        message: "Aluno atualizado com sucesso",
+        aluno: dadosAtualizados,
       });
     } catch (e) {
       console.log(e);
-      return res.status(500).json("Erro editar aluno");
+      return res.status(500).json("Erro ao editar usuario");
     }
   }
 }
 
-export default new AlunoControllers();
+export default new AlunoController();
